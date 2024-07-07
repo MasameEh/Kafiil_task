@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kafil/screens/login_screen.dart';
+import 'package:kafil/size_config.dart';
 
 import 'themes.dart';
 
 void main() {
+
   runApp(const MyApp());
 }
 
@@ -19,9 +21,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData().copyWith(
           scaffoldBackgroundColor: Colors.white,
-          focusColor: primaryColor,
+          colorScheme: ThemeData().colorScheme.copyWith(
+            primary: primaryColor,
+          ),
           appBarTheme: const AppBarTheme().copyWith(
             backgroundColor: Colors.white,
+            iconTheme: const IconThemeData(color: Colors.black),
             elevation: 0.0,
             systemOverlayStyle: const SystemUiOverlayStyle(
               statusBarColor: Colors.transparent,

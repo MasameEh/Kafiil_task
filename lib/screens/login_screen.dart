@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kafil/screens/register_screen.dart';
 
 import '../shared_widgets/defaultbutton.dart';
 import '../shared_widgets/inputfield.dart';
@@ -105,7 +106,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text('Don\'t have an account ?', style: mainTextStyle,),
                   TextButton(
                       onPressed: () {
-
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RegisterScreen(),
+                          ),
+                        );
                       },
                       child: const Text('Register',
                           style: TextStyle(

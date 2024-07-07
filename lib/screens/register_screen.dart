@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../shared_widgets/inputfield.dart';
+import '../shared_widgets/mytimelinetile.dart';
+import '../size_config.dart';
+
+
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -9,148 +14,90 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  bool _isPasswordVisible = false;
-  bool _isConfirmPasswordVisible = false;
-  String _userType = 'Select User Type';
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            // Handle back button press
-          },
+        title: const Text('Register',style: TextStyle(
+          color: Colors.black,
+        )
+        ),
+        leading: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 10.0,
+          ),
+          child: Container(
+            width: 34.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              color: Colors.white.withOpacity(.3),
+            ),
+            child: IconButton(
+              iconSize: 20,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back_ios_new),
+            ),
+          ),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            StepperIndicator(),
-            SizedBox(height: 16.0),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'First Name',
-              ),
+            padding: EdgeInsets.only(left: SizeConfig.screenWidth * .03, top: SizeConfig.screenHeight * .03, right: SizeConfig.screenWidth * .03),
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+                            children:  [
+                              MyTimelineTile(
+                                  isFirst: false,
+                                  isLast: false,
+                                  number: 1,
+                                  label: 'Register',
+                                  isTurn: true,
+                                  isDone: false,
+                              ),
+                              MyTimelineTile(
+                                  isFirst: false,
+                                  isLast: false,
+                                  number: 2,
+                                  label: 'Complete data',
+                                  isTurn: false,
+                                  isDone: false,
+                              ),
+                            ],
+              //   Container(
+              //     child: Row(
+              //       children: [
+              //         Expanded(
+              //             child: InputField(
+              //                 title: 'First Name',
+              //                 type: TextInputType.text
+              //             ),
+              //         ),
+              //         SizedBox(width: 10),
+              //         Expanded(
+              //           child: InputField(
+              //               title: 'Last Name',
+              //               type: TextInputType.text
+              //           ),
+              //         )
+              //       ],
+              //
+              //     ),
+              //   ),
+              //   SizedBox( height: 10,),
+              //   InputField(
+              //       title: 'Email Address',
+              //       type: TextInputType.text
+              //   ),
+              // ],
             ),
-            SizedBox(height: 16.0),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Last Name',
-              ),
             ),
-            SizedBox(height: 16.0),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Email Address',
-              ),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              obscureText: !_isPasswordVisible,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    _isPasswordVisible
-                        ? Icons.visibility
-                        : Icons.visibility_off,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _isPasswordVisible = !_isPasswordVisible;
-                    });
-                  },
-                ),
-              ),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              obscureText: !_isConfirmPasswordVisible,
-              decoration: InputDecoration(
-                labelText: 'Confirm Password',
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    _isConfirmPasswordVisible
-                        ? Icons.visibility
-                        : Icons.visibility_off,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
-                    });
-                  },
-                ),
-              ),
-            ),
-            SizedBox(height: 16.0),
-            DropdownButtonFormField<String>(
-              value: _userType,
-              items: <String>['Select User Type', 'User Type 1', 'User Type 2']
-                  .map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  _userType = newValue!;
-                });
-              },
-            ),
-            Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                // Handle next button press
-              },
-              child: Text('Next'),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50), // full width
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
 
-class StepperIndicator extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Column(
-          children: [
-            CircleAvatar(
-              radius: 15,
-              backgroundColor: Colors.green,
-              child: Text('1', style: TextStyle(color: Colors.white)),
-            ),
-            Text('Register', style: TextStyle(color: Colors.green)),
-          ],
-        ),
-        SizedBox(width: 10),
-        Expanded(
-          child: Divider(color: Colors.grey, thickness: 2),
-        ),
-        SizedBox(width: 10),
-        Column(
-          children: [
-            CircleAvatar(
-              radius: 15,
-              backgroundColor: Colors.grey,
-              child: Text('2', style: TextStyle(color: Colors.white)),
-            ),
-            Text('Complete Data', style: TextStyle(color: Colors.grey)),
-          ],
-        ),
-      ],
-    );
-  }
-}
+
+
