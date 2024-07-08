@@ -42,6 +42,7 @@ class MyTimelineTile extends StatelessWidget {
                 fontSize: 10,
                 fontWeight: FontWeight.w600
               ),),
+        endChild: Container(),
         beforeLineStyle: isTurn ? const LineStyle(
           color: primaryColor,
           thickness: 1.8,

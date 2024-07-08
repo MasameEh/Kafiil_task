@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import '../themes.dart';
 
 class DefaultButton extends StatelessWidget {
-  const DefaultButton({super.key, required this.label, required this.onTap});
+  const DefaultButton({super.key, required this.label, required this.onTap, required this.width, this.margin});
+  final EdgeInsetsGeometry? margin;
 
   final String label;
+  final double width;
   final Function() onTap;
 
   @override
@@ -13,9 +15,10 @@ class DefaultButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        margin: margin,
         alignment: Alignment.center,
         height: 60,
-        width: double.infinity,
+        width: width,
         decoration: BoxDecoration(
           color: primaryColor,
           borderRadius: BorderRadius.circular(10),
@@ -24,6 +27,7 @@ class DefaultButton extends StatelessWidget {
           label,
           style: const TextStyle(
             color: Colors.white,
+             fontSize: 15
           ),
           textAlign: TextAlign.center,
         ),

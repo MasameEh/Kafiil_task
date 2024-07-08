@@ -26,7 +26,7 @@ class InputField extends StatelessWidget {
             title,
             style: const TextStyle(
               color: Colors.black54,
-              fontSize: 15,
+              fontSize: 13,
               fontWeight: FontWeight.w400,
             )
           ),

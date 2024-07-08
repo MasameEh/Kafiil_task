@@ -3,6 +3,7 @@ import 'package:kafil/screens/register_screen.dart';
 
 import '../shared_widgets/defaultbutton.dart';
 import '../shared_widgets/inputfield.dart';
+import '../size_config.dart';
 import '../themes.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -27,6 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Account Login',
@@ -35,14 +38,14 @@ class _LoginScreenState extends State<LoginScreen> {
             )),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 25),
+        padding: EdgeInsets.only(left: SizeConfig.screenWidth * .05, right: SizeConfig.screenWidth * .05, top: SizeConfig.screenHeight * .04),
         child: SingleChildScrollView(
           child: Column(
             children: [
               Center(
                 child: Image.asset(
                   'assets/login.png',
-                  width: 230,
+                  width: SizeConfig.screenWidth * 0.55,
                 ),
               ),
               const SizedBox(
@@ -50,9 +53,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const InputField(
                   title: 'Email Address', type: TextInputType.emailAddress),
-              const SizedBox(
-                height: 15,
-              ),
               InputField(
                 title: 'Password',
                 type: TextInputType.visiblePassword,
@@ -95,10 +95,11 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               DefaultButton(
                 label: 'Login',
+                width: double.infinity,
                 onTap: () {},
               ),
               const SizedBox(
-                height: 15,
+                height: 5,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -117,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             color: primaryColor,
                             fontSize: 15,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w600,
                           )
                       )
                   ),
