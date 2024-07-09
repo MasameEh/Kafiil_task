@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 import '../themes.dart';
 
 class DefaultButton extends StatelessWidget {
-  const DefaultButton({super.key, required this.label, required this.onTap, required this.width, this.margin});
+  const DefaultButton({
+    super.key,
+    required this.label,
+    required this.onTap,
+    this.width = double.infinity,
+    this.margin,
+  });
   final EdgeInsetsGeometry? margin;
 
   final String label;

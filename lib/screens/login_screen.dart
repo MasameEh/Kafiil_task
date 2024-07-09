@@ -95,7 +95,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               DefaultButton(
                 label: 'Login',
-                width: double.infinity,
                 onTap: () {},
               ),
               const SizedBox(

@@ -1,9 +1,8 @@
-import 'package:easy_stepper/easy_stepper.dart';
+
 import 'package:flutter/material.dart';
 
 import '../shared_widgets/defaultbutton.dart';
 import '../shared_widgets/inputfield.dart';
-import '../shared_widgets/mytimelinetile.dart';
 import '../size_config.dart';
 import '../themes.dart';
 import 'complete_data.dart';
@@ -78,7 +77,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       Container(
                         margin: EdgeInsets.only(
-                            left: SizeConfig.screenWidth * .15)
+                            left: SizeConfig.screenWidth * .16)
                         ,
                         color: Colors.white,
                         child: const Text('Register', style:
@@ -91,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       Container(
                         margin: EdgeInsets.only(
-                            left: SizeConfig.screenWidth * .27),
+                            left: SizeConfig.screenWidth * .25),
                         color: Colors.white,
                         child: Text('Complete Data', style:
                         TextStyle(
@@ -110,7 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        width: 70,
+                        width: SizeConfig.screenWidth * .2,
                         height: 2,
                         decoration: const BoxDecoration(
                           color: primaryColor,
@@ -143,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         backgroundColor: Colors.grey[200],
                       ),
                       Container(
-                        width: 60,
+                        width: SizeConfig.screenWidth * .22,
                         height: 2  ,
                         decoration: BoxDecoration(
                           color: Colors.grey[200] ,

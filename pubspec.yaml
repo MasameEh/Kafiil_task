@@ -37,8 +37,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   timelines: ^0.1.0
   timeline_tile: ^2.0.0
-  sliver_tools: ^0.2.5
-  easy_stepper: ^0.8.3
+  textfield_tags: ^3.0.1
+  intl: ^0.19.0
+  font_awesome_flutter: ^10.7.0
+  image_picker: ^1.0.7
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +68,7 @@ flutter:
   assets:
     - assets/login.png
     - assets/SignUp.png
+    - assets/profile.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
