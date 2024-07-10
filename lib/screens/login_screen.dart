@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       isPass = !isPass;
     });
-    suffix = isPass ? Icons.visibility_outlined : Icons.visibility_off_outlined;
+    suffix = isPass ? Icons.visibility_off_outlined : Icons.visibility_outlined;
   }
 
   @override
@@ -66,12 +66,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   Checkbox(
                     value: isChecked,
                     activeColor: primaryColor,
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(3),
+                    ),
                     onChanged: (bool? value) {
                       setState(() {
                         isChecked = value!;
                       });
                     },
                   ),
+                   const SizedBox(width: 5),
                    Text('Remember me',
                     style: mainTextStyle,
                   ),

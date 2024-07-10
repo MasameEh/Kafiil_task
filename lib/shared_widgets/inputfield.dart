@@ -48,7 +48,7 @@ class InputField extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               border: Border.all(color: Colors.white),
-              color: Colors.grey[50],
+              color: Colors.grey.withOpacity(.08),
             ),
             child: TextFormField(
                 obscureText: isPassword ?? false,

@@ -10,6 +10,7 @@ import '../shared_widgets/stringmultilinetags.dart';
 import '../shared_widgets/user_image.dart';
 import '../size_config.dart';
 import '../themes.dart';
+import 'layout_screen.dart';
 
 class CompleteData extends StatefulWidget {
   const CompleteData({super.key});
@@ -68,7 +69,7 @@ class _CompleteDataState extends State<CompleteData> {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: const FlexibleSpaceBar(
-          titlePadding: EdgeInsets.only(left: 45, bottom: 16.0),
+          titlePadding: EdgeInsets.only(left: 42, bottom: 16.0),
           title: Text('Register',style: TextStyle(
             color: Colors.black,
           )
@@ -157,7 +158,7 @@ class _CompleteDataState extends State<CompleteData> {
                          ),
                        ),
                    Container(
-                     width: 140,
+                     width: SizeConfig.screenWidth * .37,
                      height: 2,
                      decoration: const BoxDecoration(
                        color: primaryColor,
@@ -179,7 +180,7 @@ class _CompleteDataState extends State<CompleteData> {
                      ),
                    ),
                    Container(
-                     width: SizeConfig.screenWidth * .22,
+                     width: SizeConfig.screenWidth * .18,
                      height: 2,
                      decoration: BoxDecoration(
                        color: Colors.grey[200],
@@ -315,7 +316,6 @@ class _CompleteDataState extends State<CompleteData> {
                       Expanded(
                         child: RadioListTile<String>(
                           contentPadding: const EdgeInsets.all(0),
-
                           value: 'Male',
                           groupValue: _selectedGender,
                           title: const Text('Male'),
@@ -341,7 +341,7 @@ class _CompleteDataState extends State<CompleteData> {
                           },
                         ),
                       ),
-                      SizedBox(width: SizeConfig.screenWidth * .3,)
+                      SizedBox(width: SizeConfig.screenWidth * .29,)
                     ],
                   ),
                 ],
@@ -370,7 +370,7 @@ class _CompleteDataState extends State<CompleteData> {
                         children: [
                           Checkbox(
                             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            visualDensity: VisualDensity(horizontal: -4, vertical: -2),
+                            visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
                             onChanged: i == checked.length ? null : (bool? value) {
                               setState(() {
                                 checked[i] = value;
@@ -379,7 +379,7 @@ class _CompleteDataState extends State<CompleteData> {
                             value: checked[i],
                             activeColor: primaryColor,
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4),
+                                borderRadius: BorderRadius.circular(3),
                             ),
                           ),
                           const SizedBox(width: 8,),
@@ -398,7 +398,14 @@ class _CompleteDataState extends State<CompleteData> {
               DefaultButton(
                 label: 'Submit',
 
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomeLayout(),
+                    ),
+                  );
+                },
               ),
               const SizedBox(
                 height: 50,

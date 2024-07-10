@@ -43,7 +43,7 @@ class _UserImageState extends State<UserImage> {
               radius: 42,
               backgroundColor: primaryColor,
               child: CircleAvatar(
-                backgroundColor: Colors.white70.withOpacity(.85),
+                backgroundColor: Colors.white70.withOpacity(.95),
                 foregroundImage: pickedImageFile == null ? null: FileImage(pickedImageFile!),
                 radius: 40,
                 child: Image.asset('assets/profile.png'),

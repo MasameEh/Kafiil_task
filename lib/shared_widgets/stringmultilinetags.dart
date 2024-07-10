@@ -115,7 +115,7 @@ class _StringMultilineTagsState extends State<StringMultilineTags> {
                                 inputFieldValues.tags.map((String tag) {
                                   return Container(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
+                                      borderRadius: const BorderRadius.all(
                                         Radius.circular(10.0),
                                       ),
                                       color: Colors.green.withOpacity(.1),
