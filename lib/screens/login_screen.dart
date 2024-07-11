@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kafil/screens/register_screen.dart';
 
 import '../shared_widgets/defaultbutton.dart';
+import '../shared_widgets/error_msg.dart';
 import '../shared_widgets/inputfield.dart';
 import '../size_config.dart';
 import '../themes.dart';
+import 'layout_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,10 +16,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool isPass = false;
+  bool isPass = true;
   bool isChecked = false;
+  bool isError = false;
 
-  IconData suffix = Icons.visibility_outlined;
+  IconData suffix = Icons.visibility_off_outlined;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passController = TextEditingController();
 
   void changePasswordVisibility() {
     setState(() {
@@ -26,6 +31,12 @@ class _LoginScreenState extends State<LoginScreen> {
     suffix = isPass ? Icons.visibility_off_outlined : Icons.visibility_outlined;
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -42,6 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              ErrorMsg(show: isError),
               Center(
                 child: Image.asset(
                   'assets/login.png',
@@ -51,11 +63,15 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 15,
               ),
-              const InputField(
-                  title: 'Email Address', type: TextInputType.emailAddress),
+               InputField(
+                  title: 'Email Address',
+                  type: TextInputType.emailAddress,
+                  controller: _emailController,
+              ),
               InputField(
                 title: 'Password',
-                type: TextInputType.visiblePassword,
+                controller: _passController,
+                type: TextInputType.text,
                 isPassword: isPass,
                 suffix: suffix,
                 suffixPressed: changePasswordVisibility,
@@ -101,7 +117,15 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               DefaultButton(
                 label: 'Login',
-                onTap: () {},
+                onTap: () {
+                  _validateElements();
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const HomeLayout(),
+                  //   ),
+                  // );
+                },
               ),
               const SizedBox(
                 height: 5,
@@ -134,5 +158,23 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  _validateElements() {
+    if (_emailController.text.isEmpty || _passController.text.isEmpty) {
+      setState(() {
+        isError = true;
+      });
+    } else {
+      setState(() {
+        isError = false;
+      });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomeLayout(),
+        ),
+      );
+    }
   }
 }

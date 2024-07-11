@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:kafil/shared_widgets/error_msg.dart';
 
 import '../shared_widgets/defaultbutton.dart';
 import '../shared_widgets/inputfield.dart';
@@ -17,11 +18,13 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  bool isPass = false;
-  bool isPassConf = false;
+  bool isPass = true;
+  bool isPassConf = true;
   bool isChecked = false;
   bool isError = false;
-  IconData suffix = Icons.visibility_outlined;
+  IconData suffix = Icons.visibility_off_outlined;
+  IconData suffixConf = Icons.visibility_off_outlined;
+
   String? _selectedValue;
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -43,7 +46,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() {
       isPassConf = !isPassConf;
     });
-    suffix = isPassConf ? Icons.visibility_off_outlined : Icons.visibility_outlined;
+    suffixConf = isPassConf ? Icons.visibility_off_outlined : Icons.visibility_outlined;
   }
 
   int activeStep = 0;
@@ -92,7 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    errmsg(isError),
+                    ErrorMsg(show: isError,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -199,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     InputField(
                       title: 'Password',
                       controller: _passController,
-                      type: TextInputType.visiblePassword,
+                      type: TextInputType.text,
                       isPassword: isPass,
                       suffix: suffix,
                       suffixPressed: changePasswordVisibility,
@@ -207,9 +210,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     InputField(
                       title: 'Confirm Password',
                       controller: _confirmpassController,
-                      type: TextInputType.visiblePassword,
+                      type: TextInputType.text,
                       isPassword: isPassConf,
-                      suffix: suffix,
+                      suffix: suffixConf,
                       suffixPressed: changePasswordConfVisibility,
                     ),
                     const SizedBox(height: 10,),
@@ -307,32 +310,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
 
   }
-  Widget errmsg(bool show){
-    //error message widget.
-    if(show == true){
-      //if error is true then show error message box
-      return Container(
-        padding: const EdgeInsets.only(left: 20,top: 5,right: 10,bottom: 5),
-        margin: const EdgeInsets.only(bottom: 20.00),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: Colors.red.withOpacity(.1),
-        ),
-        child: Row(children: [
-          Container(
-            margin: EdgeInsets.only(right:6.00),
-            child: Icon(Icons.info_outline, color: Colors.red[300]),
-          ), // icon for error message
-
-          Text('Fill the required fields', style: TextStyle(color: Colors.red[300])),
-          //show error message text
-        ]),
-      );
-    }else{
-      return Container();
-      //if error is false, return empty container.
-    }
-  }
+  // Widget errmsg(bool show){
+  //   //error message widget.
+  //   if(show == true){
+  //     //if error is true then show error message box
+  //     return Container(
+  //       padding: const EdgeInsets.only(left: 20,top: 5,right: 10,bottom: 5),
+  //       margin: const EdgeInsets.only(bottom: 20.00),
+  //       decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.circular(8),
+  //         color: Colors.red.withOpacity(.1),
+  //       ),
+  //       child: Row(children: [
+  //         Container(
+  //           margin: EdgeInsets.only(right:6.00),
+  //           child: Icon(Icons.info_outline, color: Colors.red[300]),
+  //         ), // icon for error message
+  //
+  //         Text('Fill the required fields', style: TextStyle(color: Colors.red[300])),
+  //         //show error message text
+  //       ]),
+  //     );
+  //   }else{
+  //     return Container();
+  //     //if error is false, return empty container.
+  //   }
+  // }
 
 }
 

@@ -22,7 +22,7 @@ class _WhoAmIScreenState extends State<WhoAmIScreen> {
   File? selectedImage;
   bool isPass = false;
   bool isChecked = false;
-  String _selectedGender = 'Male';
+  final String _selectedGender = 'Male';
   final String _selectedUserType = 'Seller';
   TextEditingController passController = TextEditingController(text: "123456");
 
@@ -61,6 +61,17 @@ class _WhoAmIScreenState extends State<WhoAmIScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        flexibleSpace: const FlexibleSpaceBar(
+          titlePadding: EdgeInsets.only(left: 25, bottom: 16.0),
+          title:  Text('Who Am I',style: TextStyle(
+            color: Colors.black,
+          )
+          ),
+        ),
+      ),
       body: Padding(
         padding: EdgeInsets.only(
             left: SizeConfig.screenWidth * .05,
