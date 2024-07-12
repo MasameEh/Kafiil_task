@@ -3,17 +3,7 @@ import 'package:flutter/material.dart';
 import '../size_config.dart';
 
 class InputField extends StatelessWidget {
-  const InputField(
-      {super.key,
-      required this.title,
-      required this.type,
-      this.hint,
-      this.controller,
-      this.validator,
-      this.isPassword,
-      this.suffix,
-      this.suffixPressed,
-      this.height = 60, this.readOnly = false});
+
 
   final String title;
   final String? hint;
@@ -25,6 +15,22 @@ class InputField extends StatelessWidget {
   final bool? isPassword;
   final double height;
   final bool readOnly;
+  final Function(String)? onSubmit;
+
+  const InputField(
+      {super.key,
+        required this.title,
+        required this.type,
+        this.hint,
+        this.controller,
+        this.validator,
+        this.isPassword,
+        this.suffix,
+        this.suffixPressed,
+        this.height = 60,
+        this.readOnly = false,
+        this.onSubmit,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +63,7 @@ class InputField extends StatelessWidget {
                 autofocus: false,
                 cursorColor: Colors.grey[700],
                 validator: validator,
+                onFieldSubmitted: onSubmit,
                 keyboardType: type,
                 scrollPhysics: const AlwaysScrollableScrollPhysics(),
                 minLines: type == TextInputType.multiline ? 1 : null,

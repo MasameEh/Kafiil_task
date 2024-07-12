@@ -52,6 +52,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
   int activeStep = 0;
 
   @override
+  void dispose() {
+    // Reset the error state and clear the text controllers
+    _emailController.dispose();
+    _passController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _confirmpassController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
@@ -209,6 +220,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     InputField(
                       title: 'Confirm Password',
+                      // onSubmit: (val)
+                      // {
+                      //   _validateElements();
+                      // },
                       controller: _confirmpassController,
                       type: TextInputType.text,
                       isPassword: isPassConf,

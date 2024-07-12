@@ -152,9 +152,18 @@ class _CountriesScreenState extends State<CountriesScreen> {
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(12),
                 color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.08),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 1), // changes position of shadow
+                  ),
+                ],
               ),
+
                   child: DataTable(
                     headingRowColor:  MaterialStatePropertyAll(Colors.grey.withOpacity(.08)),
                     columnSpacing: 50,
@@ -189,9 +198,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 ),
             const  SizedBox(height: 20,),
             NumberPaginator(
-
               config: NumberPaginatorUIConfig(
-
                 buttonShape: ContinuousRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                   side: BorderSide(
@@ -202,7 +209,6 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 buttonSelectedBackgroundColor: primaryColor,
                 buttonUnselectedForegroundColor: Colors.black,
               ),
-
               numberPages: totalPages,
               onPageChange: (index) {
                 setState(() {

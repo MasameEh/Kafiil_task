@@ -35,8 +35,16 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    isError = false;
   }
+  @override
+  void dispose() {
+    // Reset the error state and clear the text controllers
+    _emailController.dispose();
+    _passController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -70,6 +78,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               InputField(
                 title: 'Password',
+                onSubmit: (value)
+                {
+                  _validateElements();
+                },
                 controller: _passController,
                 type: TextInputType.text,
                 isPassword: isPass,
@@ -136,6 +148,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text('Don\'t have an account ?', style: mainTextStyle,),
                   TextButton(
                       onPressed: () {
+                        setState(() {
+                          isError = false;
+                        });
                         Navigator.push(
                           context,
                           MaterialPageRoute(

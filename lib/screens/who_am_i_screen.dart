@@ -20,14 +20,14 @@ class WhoAmIScreen extends StatefulWidget {
 
 class _WhoAmIScreenState extends State<WhoAmIScreen> {
   File? selectedImage;
-  bool isPass = false;
+  bool isPass = true;
   bool isChecked = false;
   final String _selectedGender = 'Male';
   final String _selectedUserType = 'Seller';
   TextEditingController passController = TextEditingController(text: "123456");
 
 
-  IconData suffix = Icons.visibility_outlined;
+  IconData suffix = Icons.visibility_off_outlined;
   List<String> checkBoxList = ['Facebook', 'Twitter', 'Linkedin'];
   List<bool?> checked = [true,false,false];
   List<Widget> mediaIcons = [
@@ -280,11 +280,14 @@ class _WhoAmIScreenState extends State<WhoAmIScreen> {
               DefaultButton(
                 label: 'Log out',
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const LoginScreen(),
                     ),
+                        (route) {
+                          return false;
+                        },
                   );
                 },
               ),

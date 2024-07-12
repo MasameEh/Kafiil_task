@@ -17,7 +17,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   final List<Widget> _screens = [
     const WhoAmIScreen(),
     const CountriesScreen(),
-    const ServicesScreen(),
+    ServicesScreen(),
   ];
 
   List<String> titles = [
