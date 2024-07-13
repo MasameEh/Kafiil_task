@@ -23,7 +23,7 @@ class _WhoAmIScreenState extends State<WhoAmIScreen> {
   bool isPass = true;
   bool isChecked = false;
   final String _selectedGender = 'Male';
-  final String _selectedUserType = 'Seller';
+  String _selectedUserType = 'Seller';
   TextEditingController passController = TextEditingController(text: "123456");
 
 
@@ -133,44 +133,68 @@ class _WhoAmIScreenState extends State<WhoAmIScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: RadioListTile<String>(
-                          contentPadding: const EdgeInsets.all(0),
-                          value: 'Seller',
-                          groupValue: _selectedUserType,
-                          title: const Text('Seller'),
-                          activeColor: primaryColor,
-                          onChanged: (value) {
+                        child: InkWell(
+                          onTap: () {
 
                           },
+                          child: Row(
+                            children: [
+                              Radio<String>(
+                                value: 'Seller',
+                                groupValue: _selectedUserType,
+                                activeColor: primaryColor,
+                                onChanged: (value) {
+
+                                },
+                              ),
+                              const Text('Seller'),
+                            ],
+                          ),
                         ),
                       ),
                       Expanded(
-                        child: RadioListTile<String>(
-                          value: 'Buyer',
-                          contentPadding: const EdgeInsets.all(0),
-                          groupValue: _selectedUserType,
-                          title: const Text('Buyer'),
-                          activeColor: primaryColor,
-                          onChanged: (value) {
+                        child: InkWell(
+                          onTap: () {
 
                           },
+                          child: Row(
+                            children: [
+                              Radio<String>(
+                                value: 'Buyer',
+                                groupValue: _selectedUserType,
+                                activeColor: primaryColor,
+                                onChanged: (value) {
+
+                                },
+                              ),
+                              const Text('Buyer'),
+                            ],
+                          ),
                         ),
                       ),
                       Expanded(
-                        child: RadioListTile<String>(
-                          value: 'Both',
-                          contentPadding: const EdgeInsets.all(0),
-                          groupValue: _selectedUserType,
-                          title: const Text('Both'),
-                          activeColor: primaryColor,
-                          onChanged: (value) {
-
+                        child: InkWell(
+                          onTap: () {
                           },
+                          child: Row(
+                            children: [
+                              Radio<String>(
+                                value: 'Both',
+                                groupValue: _selectedUserType,
+                                activeColor: primaryColor,
+                                onChanged: (value) {
+
+                                },
+                              ),
+                              const Text('Both'),
+                            ],
+                          ),
                         ),
                       ),
-                      SizedBox(width: 30,)
+                      SizedBox(width: SizeConfig.screenWidth * .15),
                     ],
                   ),
+
                 ],
               ),
               const InputField(
@@ -211,28 +235,46 @@ class _WhoAmIScreenState extends State<WhoAmIScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: RadioListTile<String>(
-                          contentPadding: const EdgeInsets.all(0),
-                          value: 'Male',
-                          groupValue: _selectedGender,
-                          title: const Text('Male'),
-                          activeColor: primaryColor,
-                          onChanged: (value) {
+                        child: InkWell(
+                          onTap: () {
+
                           },
+                          child: Row(
+                            children: [
+                              Radio<String>(
+                                value: 'Male',
+                                groupValue: _selectedGender,
+                                activeColor: primaryColor,
+                                onChanged: (value) {
+
+                                },
+                              ),
+                              const Text('Male'),
+                            ],
+                          ),
                         ),
                       ),
                       Expanded(
-                        child: RadioListTile<String>(
-                          value: 'Female',
-                          contentPadding: const EdgeInsets.all(0),
-                          groupValue: _selectedGender,
-                          title: const Text('Female'),
-                          activeColor: primaryColor,
-                          onChanged: (value) {
+                        child: InkWell(
+                          onTap: () {
+
                           },
+                          child: Row(
+                            children: [
+                              Radio<String>(
+                                value: 'Female',
+                                groupValue: _selectedGender,
+                                activeColor: primaryColor,
+                                onChanged: (value) {
+
+                                },
+                              ),
+                              const Text('Female'),
+                            ],
+                          ),
                         ),
                       ),
-                      SizedBox(width: SizeConfig.screenWidth * .29,)
+                      SizedBox(width: SizeConfig.screenWidth * .29),
                     ],
                   ),
                 ],

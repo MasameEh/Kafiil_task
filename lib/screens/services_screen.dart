@@ -5,9 +5,9 @@ import '../shared_widgets/serviceitem.dart';
 class ServicesScreen extends StatelessWidget {
 
   final List<Map<String, String>> services = [
-    {"price": "\$100", "title": "Logo Design -Graphic Design Graphic Design",},
-    {"price": "\$100", "title": "Logo Design -Graphic Design Graphic Design",},
-    {"price": "\$100", "title": "Logo Design -Graphic Design Graphic Design",},
+    {"price": "\$100", "title": "Logo Design -Graphic Design Graphic Design ",},
+    {"price": "\$100", "title": "Logo Design -Graphic Design Graphic Design ",},
+    {"price": "\$100", "title": "Logo Design -Graphic Design Graphic Design ",},
     {"price": "\$100", "title": "Logo Design -Graphic Design Graphic Design",},
     {"price": "\$100", "title": "Logo Design -Graphic Design Graphic Design",},
     {"price": "\$100", "title": "Logo Design -Graphic Design Graphic Design",},
@@ -51,12 +51,12 @@ class ServicesScreen extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(height: 25),
-              Text(
+              const SizedBox(height: 25),
+              const Text(
                 'Popular Services',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               SizedBox(
                 height: 215,
                 child: ListView.builder(

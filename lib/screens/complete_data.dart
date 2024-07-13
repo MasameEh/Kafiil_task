@@ -314,34 +314,54 @@ class _CompleteDataState extends State<CompleteData> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: RadioListTile<String>(
-                          contentPadding: const EdgeInsets.all(0),
-                          value: 'Male',
-                          groupValue: _selectedGender,
-                          title: const Text('Male'),
-                          activeColor: primaryColor,
-                          onChanged: (value) {
+                        child: InkWell(
+                          onTap: () {
                             setState(() {
-                              _selectedGender = value;
+                              _selectedGender = 'Male';
                             });
                           },
+                          child: Row(
+                            children: [
+                              Radio<String>(
+                                value: 'Male',
+                                groupValue: _selectedGender,
+                                activeColor: primaryColor,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedGender = value;
+                                  });
+                                },
+                              ),
+                              const Text('Male'),
+                            ],
+                          ),
                         ),
                       ),
                       Expanded(
-                        child: RadioListTile<String>(
-                          value: 'Female',
-                          contentPadding: const EdgeInsets.all(0),
-                          groupValue: _selectedGender,
-                          title: const Text('Female'),
-                          activeColor: primaryColor,
-                          onChanged: (value) {
+                        child: InkWell(
+                          onTap: () {
                             setState(() {
-                              _selectedGender = value;
+                              _selectedGender = 'Female';
                             });
                           },
+                          child: Row(
+                            children: [
+                              Radio<String>(
+                                value: 'Female',
+                                groupValue: _selectedGender,
+                                activeColor: primaryColor,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedGender = value;
+                                  });
+                                },
+                              ),
+                              const Text('Female'),
+                            ],
+                          ),
                         ),
                       ),
-                      SizedBox(width: SizeConfig.screenWidth * .29,)
+                      SizedBox(width: SizeConfig.screenWidth * .29),
                     ],
                   ),
                 ],
