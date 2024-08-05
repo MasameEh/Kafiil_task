@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:kafil/routes.dart';
 import 'package:kafil/screens/login_screen.dart';
-import 'package:kafil/size_config.dart';
+import 'package:kafil/services/services.dart';
 
+import 'bindings/initial_bindings.dart';
 import 'themes.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await initialServices();
 
   runApp(const MyApp());
 }
@@ -16,12 +21,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData().copyWith(
           unselectedWidgetColor: Colors.grey[350],
           scaffoldBackgroundColor: Colors.white,
+          checkboxTheme: CheckboxThemeData(
+              side: BorderSide(
+                color: Colors.grey[350]!,
+              )),
           colorScheme: ThemeData().colorScheme.copyWith(
             primary: primaryColor,
           ),
@@ -39,53 +48,10 @@ class MyApp extends StatelessWidget {
             )
         )
       ),
-      home: const LoginScreen(),
+      initialBinding: InitialBindings(),
+      getPages: getRoutes,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
 
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-
-        child: Column(
-
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

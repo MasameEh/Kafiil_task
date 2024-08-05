@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kafil/screens/login_screen.dart';
 
-import '../shared_widgets/defaultbutton.dart';
-import '../shared_widgets/inputfield.dart';
-import '../shared_widgets/stringmultilinetags.dart';
-import '../shared_widgets/user_image.dart';
+import '../shared/defaultbutton.dart';
+import '../shared/inputfield.dart';
+import '../shared/stringmultilinetags.dart';
+import '../shared/user_image.dart';
 import '../size_config.dart';
 import '../themes.dart';
 

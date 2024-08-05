@@ -1,112 +1,55 @@
 
 import 'package:flutter/material.dart';
-import 'package:kafil/shared_widgets/error_msg.dart';
+import 'package:get/get.dart';
+import 'package:kafil/shared/error_msg.dart';
+import 'package:kafil/shared/functions/validator.dart';
 
-import '../shared_widgets/defaultbutton.dart';
-import '../shared_widgets/inputfield.dart';
+import '../controller/auth/register_controller.dart';
+import '../shared/defaultbutton.dart';
+import '../shared/inputfield.dart';
 import '../size_config.dart';
 import '../themes.dart';
-import 'complete_data.dart';
 
 
-
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
 
-  @override
-  _RegisterScreenState createState() => _RegisterScreenState();
-}
-
-class _RegisterScreenState extends State<RegisterScreen> {
-  bool isPass = true;
-  bool isPassConf = true;
-  bool isChecked = false;
-  bool isError = false;
-  IconData suffix = Icons.visibility_off_outlined;
-  IconData suffixConf = Icons.visibility_off_outlined;
-
-  String? _selectedValue;
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passController = TextEditingController();
-  final TextEditingController _confirmpassController = TextEditingController();
-
-
-
-  final _formKey = GlobalKey<FormState>();
-
-  void changePasswordVisibility() {
-    setState(() {
-      isPass = !isPass;
-    });
-    suffix = isPass ? Icons.visibility_off_outlined : Icons.visibility_outlined;
-  }
-  void changePasswordConfVisibility() {
-    setState(() {
-      isPassConf = !isPassConf;
-    });
-    suffixConf = isPassConf ? Icons.visibility_off_outlined : Icons.visibility_outlined;
-  }
-
-  int activeStep = 0;
-
-  @override
-  void dispose() {
-    // Reset the error state and clear the text controllers
-    _emailController.dispose();
-    _passController.dispose();
-    _firstNameController.dispose();
-    _lastNameController.dispose();
-    _confirmpassController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    RegisterControllerImp con = Get.put(RegisterControllerImp());
 
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: const FlexibleSpaceBar(
-          titlePadding: EdgeInsets.only(left: 42, bottom: 16.0),
+          titlePadding: EdgeInsets.only(left: 42, bottom: 16.0, top: 45),
           title:  Text('Register',style: TextStyle(
             color: Colors.black,
-          )
-          ),
+          )),
         ),
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10.0,
-            vertical: 10.0,
-          ),
-          child: Container(
-            width: 34.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              color: Colors.white.withOpacity(.3),
-            ),
-            child: IconButton(
+        leading: IconButton(
               iconSize: 20,
               onPressed: () {
+                con.isError = false;
                 Navigator.pop(context);
               },
               icon: const Icon(Icons.arrow_back_ios_new),
             ),
           ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
+      body: GetBuilder<RegisterControllerImp>(
+        builder: (controller) {
+          return SingleChildScrollView(
+            child: Padding(
               padding: EdgeInsets.only(
                   left: SizeConfig.screenWidth * .05,
                   top: SizeConfig.screenHeight * .02,
                   right: SizeConfig.screenWidth * .05),
               child: Form(
-                key: _formKey,
+                key: controller.formKey,
                 child: Column(
                   children: [
-                    ErrorMsg(show: isError,),
+                    ErrorMsg(show: controller.isError,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -186,37 +129,49 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ],
                     ),
                     const SizedBox(height: 10,),
-                     Row(
+                    Row(
                       children: [
                         Expanded(
-                            child: InputField(
-                                title: 'First Name',
-                                controller: _firstNameController,
-                                type: TextInputType.text
-                            ),
+                          child: InputField(
+                              title: 'First Name',
+                              controller: controller.firstNameController,
+                              validator: (val) {
+                                return validInput(val!, 2, 50, "name");
+                              },
+                              type: TextInputType.text
+                          ),
                         ),
                         const SizedBox(width: 10),
                         Expanded(
                           child: InputField(
                               title: 'Last Name',
-                              controller: _lastNameController,
+                              controller: controller.lastNameController,
+                              validator: (val) {
+                                return validInput(val!, 2, 50, "name");
+                              },
                               type: TextInputType.text
                           ),
                         )
                       ],
                     ),
-                     InputField(
+                    InputField(
                         title: 'Email Address',
-                        controller: _emailController,
-                        type: TextInputType.text
+                        controller: controller.emailController,
+                        validator: (val) {
+                          return validInput(val!, 8, 64, "email");
+                        },
+                        type: TextInputType.text,
                     ),
                     InputField(
                       title: 'Password',
-                      controller: _passController,
+                      controller: controller.passController,
                       type: TextInputType.text,
-                      isPassword: isPass,
-                      suffix: suffix,
-                      suffixPressed: changePasswordVisibility,
+                      isPassword: controller.isPass,
+                      validator: (val) {
+                        return validInput(val!, 8, 25, "password");
+                      },
+                      suffix: controller.suffix,
+                      suffixPressed: controller.changePasswordVisibility,
                     ),
                     InputField(
                       title: 'Confirm Password',
@@ -224,11 +179,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       // {
                       //   _validateElements();
                       // },
-                      controller: _confirmpassController,
+                      validator: (val) {
+                        return validInput(val!, 8, 25, "password");
+                      },
+                      controller: controller.confirmpassController,
                       type: TextInputType.text,
-                      isPassword: isPassConf,
-                      suffix: suffixConf,
-                      suffixPressed: changePasswordConfVisibility,
+                      isPassword: controller.isPassConf,
+                      suffix: controller.suffixConf,
+                      suffixPressed: controller.changePasswordConfVisibility,
                     ),
                     const SizedBox(height: 10,),
                     Column(
@@ -242,89 +200,52 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               fontWeight: FontWeight.w400,
                             )
                         ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 14),
-                          margin: const EdgeInsets.only(top: 8),
-                          height: 60,
-                          width: SizeConfig.screenWidth,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                                color: Colors.white
-                            ),
-                            color: Colors.grey[50],
-                          ),
-                          child: DropdownButtonFormField<String>(
+                         DropdownButtonFormField<String>(
+                            value: controller.selectedUserType,
                             decoration: const InputDecoration(
-                              border: InputBorder.none,
+                              filled: true,
+                              fillColor: Color(0xfff9f9f9),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  borderSide: BorderSide.none
+                              ),
                             ),
-                            items: ['Seller', 'Buyer', 'Both']
+                            items: ['Buyer', 'Seller', 'Both']
                                 .map((label) => DropdownMenuItem(
                               value: label,
                               child: Text(label),
                             ))
                                 .toList(),
                             onChanged: (value) {
-                              setState(() {
-                                _selectedValue = value;
-                              });
+                              controller.userTypeSelect(value);
+                            },
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Please select an option';
+                              }
                             },
                           ),
-                        ),
                       ],
                     ),
                     const SizedBox(height: 15,),
                     DefaultButton(
-                      label: 'Next',
-                      width: SizeConfig.screenWidth * 0.4,
-                      margin: EdgeInsets.only(left: SizeConfig.screenWidth * 0.5),
-                      onTap: () {
-                        _validateElements();
-                      }
-                      //   if (_formKey.currentState!.validate())
-                      //   {
-                      //
-                      //   }
-                      //   // Navigator.push(
-                      //   //   context,
-                      //   //   MaterialPageRoute(
-                      //   //     builder: (context) => const CompleteData(),
-                      //   //   ),
-                      //   // );
-                      // },
+                        label: 'Next',
+                        width: SizeConfig.screenWidth * 0.4,
+                        margin: EdgeInsets.only(left: SizeConfig.screenWidth * 0.5),
+                        onTap: () {
+                          controller.gotoCompleteData();
+                        }
                     ),
-                    ],
+                  ],
                 ),
               ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
-  _validateElements()
-  {
-    if(_emailController.text.isEmpty || _passController.text.isEmpty
-        || _confirmpassController.text.isEmpty ||
-        _firstNameController.text.isEmpty ||
-        _lastNameController.text.isEmpty
-        || _selectedValue!.isEmpty)
-    {
-      setState(() {
-        isError = true;
-      });
 
-    } else {
-      setState(() {
-      isError = false;
-    });
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const CompleteData(),
-          ),
-        );
-    }
-
-  }
   // Widget errmsg(bool show){
   //   //error message widget.
   //   if(show == true){

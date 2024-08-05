@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kafil/screens/register_screen.dart';
 
-import '../shared_widgets/defaultbutton.dart';
-import '../shared_widgets/error_msg.dart';
-import '../shared_widgets/inputfield.dart';
+import '../shared/defaultbutton.dart';
+import '../shared/error_msg.dart';
+import '../shared/inputfield.dart';
 import '../size_config.dart';
 import '../themes.dart';
 import 'layout_screen.dart';

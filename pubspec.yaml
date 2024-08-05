@@ -42,7 +42,10 @@ dependencies:
   font_awesome_flutter: ^10.7.0
   image_picker: ^1.0.7
   number_paginator: ^0.4.1
-
+  dartz: ^0.10.1
+  get: ^4.6.1
+  http: ^1.2.2
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

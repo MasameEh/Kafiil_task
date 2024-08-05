@@ -46,17 +46,7 @@ class InputField extends StatelessWidget {
                 fontSize: 13,
                 fontWeight: FontWeight.w400,
               )),
-          Container(
-            padding: const EdgeInsets.only(left: 14, top: 5),
-            margin: const EdgeInsets.only(top: 8),
-            height: height,
-            width: SizeConfig.screenWidth,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: Colors.white),
-              color: const Color(0xfff9f9f9),
-            ),
-            child: TextFormField(
+           TextFormField(
                 obscureText: isPassword ?? false,
                 controller: controller,
                 readOnly: readOnly,
@@ -69,22 +59,26 @@ class InputField extends StatelessWidget {
                 minLines: type == TextInputType.multiline ? 1 : null,
                 maxLines: type == TextInputType.multiline ? 8 : 1,
                 decoration: InputDecoration(
+                  filled: true,
+                  fillColor: const Color(0xfff9f9f9),
                   hintText: hint,
                   hintStyle: const TextStyle(color: Colors.black),
-                  border: InputBorder.none,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide.none
+                  ),
                   suffixIcon: suffix != null
                       ? IconButton(
                           onPressed: suffixPressed,
                           icon: Icon(
                             suffix,
-                            // color: Colors.black54,
+                            color: const Color(0xFF8692a6),
                             size: 20,
                           ),
                         )
                       : null,
                 ),
               ),
-            ),
         ],
       ),
     );

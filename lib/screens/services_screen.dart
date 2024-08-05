@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../shared_widgets/serviceitem.dart';
+import '../shared/serviceitem.dart';
 
 class ServicesScreen extends StatelessWidget {
 
