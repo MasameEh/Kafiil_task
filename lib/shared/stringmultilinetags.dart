@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
+import '../data/models/user.dart';
 import '../themes.dart';
 
 
 class StringMultilineTags extends StatefulWidget {
-  const StringMultilineTags({Key? key}) : super(key: key);
-
+  const StringMultilineTags({super.key, this.tags});
+  final List<Tag>? tags;
   @override
   State<StringMultilineTags> createState() => _StringMultilineTagsState();
 }
@@ -14,7 +15,7 @@ class StringMultilineTags extends StatefulWidget {
 class _StringMultilineTagsState extends State<StringMultilineTags> {
   late double _distanceToField;
   late StringTagController _stringTagController;
-
+  List<String> _initialTags = [];
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -25,26 +26,29 @@ class _StringMultilineTagsState extends State<StringMultilineTags> {
   void initState() {
     super.initState();
     _stringTagController = StringTagController();
+    // Initialize _initialTags based on widget.tags
+    if (widget.tags == null || widget.tags!.isEmpty) {
+      _initialTags = <String>[
+        'Video Production',
+        'c',
+        'java',
+        'javascript',
+      ];
+    } else {
+      _initialTags = widget.tags!.map((tag) => tag.name).toList();
+    }
+
+    // Using setState to ensure the UI is updated if necessary
+    setState(() {});
   }
 
   @override
   void dispose() {
-    super.dispose();
     _stringTagController.dispose();
+    super.dispose();
   }
 
-  static const List<String> _initialTags = <String>[
-    'Video Production',
-    'c',
-    'java',
-    'python',
-    'javascript',
-    'sql',
-    'html',
-    'css',
-  ];
-
-  @override
+    @override
   Widget build(BuildContext context) {
     return  Column(
       crossAxisAlignment: CrossAxisAlignment.start,

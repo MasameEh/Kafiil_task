@@ -38,36 +38,45 @@ class _UserImageState extends State<UserImage> {
   Widget build(BuildContext context) {
 
     return Stack(
-          children: [
-            CircleAvatar(
-              radius: 42,
-              backgroundColor: primaryColor,
-              child: CircleAvatar(
-                backgroundColor: Colors.white70.withOpacity(.95),
-                foregroundImage: pickedImageFile == null ? null: FileImage(pickedImageFile!),
-                radius: 40,
-                child: Image.asset('assets/profile.png'),
+      children: [
+        CircleAvatar(
+          radius: 42,
+          backgroundColor: primaryColor,
+          child: CircleAvatar(
+            radius: 40,
+            foregroundImage:  pickedImageFile == null ? null: FileImage(pickedImageFile!),
+            child: Image.asset("assets/profile.png"),
+          ),
+        ),
+        Positioned(
+          top: 45,
+          left: 45,
+          child: TextButton.icon(
+            onPressed: () async {
+// Your onPressed function here
+              await pickImage();
+              if (pickedImageFile != null) {
+                widget.onPickImage(pickedImageFile!);
+              }
+            },
+            icon: Container(
+              width: 25,
+              height: 25,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: primaryColor,
+              ),
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+                size: 17,
               ),
             ),
-            TextButton.icon(
-              onPressed: () async{
-                await pickImage();
-                if (pickedImageFile != null) {
-                  widget.onPickImage(pickedImageFile!);
-                }
-              },
-              icon: Container(
-                  margin: EdgeInsets.only(top: 50, left: 50),
-                  width: 25,
-                  height: 25,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: primaryColor,
-                  ),
-                  child: const Icon(Icons.add, color: Colors.white,size: 17,)),
-                    label: const Text(''),
-            ),
-          ],
+            label: const Text(''),
+          ),
+        ),
+      ],
     );
   }
 }
+

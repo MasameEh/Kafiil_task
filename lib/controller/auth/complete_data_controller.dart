@@ -24,7 +24,8 @@ class CompleteDataControllerImp extends CompleteDataController{
 
   int counter = 100;
   String? selectedGender;
-  List<String> checkBoxList = ['Facebook', 'Twitter', 'Linkedin'];
+  int? selectedGenderBool;
+  List<String> checkBoxList = ['facebook', 'x', 'linkedin'];
   List<String> selectedSocial = [];
   List<bool?> checked = [false,false,false];
   File? selectedImage;
@@ -83,19 +84,11 @@ class CompleteDataControllerImp extends CompleteDataController{
 
   @override
   register() async{
-    if(formKey.currentState!.validate()){
+    if(formKey.currentState!.validate() && selectedImage != null &&
+        selectedDate.isBefore(DateTime.now()) &&
+        selectedGender != null && selectedSocial.isNotEmpty){
       statusRequest = StatusRequest.loading;
       update();
-      print(email);
-      print(password);
-      print(firstname);
-      print(userType);
-      print(aboutController.text.trim());
-      print(DateFormat('yyyy-MM-dd').format(selectedDate));
-      print(counter);
-      print(selectedSocial);
-      print(selectedGender);
-      print(selectedImage);
       var response = await registerData.postData(
         email: email!,
         pass: password!,
@@ -105,22 +98,20 @@ class CompleteDataControllerImp extends CompleteDataController{
         about: aboutController.text.trim(),
         birthDate: DateFormat('yyyy-MM-dd').format(selectedDate),
         salary: counter,
-        socialMedia: selectedSocial,
+        socialMedia: selectedSocial[0],
         avatar: selectedImage,
-        tags: 155,
-        gender: selectedGender,
+        tags: "5",
+        gender: selectedGenderBool,
       );
-      statusRequest = handlingData(response);
-      print("status request is $statusRequest") ;
-      if(statusRequest == StatusRequest.success){
-        if(response["status"] == true){
-          //data.addAll(response['data']);
-          Get.offAllNamed('/homelayout');
-        }
-        else{
-          Get.defaultDialog(title: 'Warning', middleText: "Phone or Email already used");
-          statusRequest = StatusRequest.serverFailure;
-        }
+
+      print("response is $response") ;
+      if(response!["success"] == true){
+        Get.offAllNamed('/success');
+        statusRequest = StatusRequest.success;
+      }
+      else{
+        Get.defaultDialog(title: 'Warning', middleText: response!["message"]);
+        statusRequest = StatusRequest.serverFailure;
       }
       update();
     }else{
@@ -131,8 +122,10 @@ class CompleteDataControllerImp extends CompleteDataController{
   selectGender(String val){
     if(val == 'Male') {
       selectedGender = 'Male';
+      selectedGenderBool = 1;
     }else{
       selectedGender = 'Female';
+      selectedGenderBool = 0;
     }
     update();
   }

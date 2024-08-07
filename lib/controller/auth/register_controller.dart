@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kafil/data/data_source/auth/register_data.dart';
+
 
 
 

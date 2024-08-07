@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:kafil/shared/class/handlingdataview.dart';
 import 'package:kafil/shared/functions/validator.dart';
 
 import '../controller/auth/complete_data_controller.dart';
@@ -54,7 +55,7 @@ class CompleteData extends StatelessWidget {
       ),
       body: GetBuilder<CompleteDataControllerImp>(
         builder: (controller) {
-          return Padding(
+          return HandlingDataReq(statusRequest: controller.statusRequest, widget: Padding(
             padding: EdgeInsets.only(
                 top: SizeConfig.screenHeight * .02,
                 left: SizeConfig.screenWidth * .05,
@@ -324,7 +325,7 @@ class CompleteData extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const StringMultilineTags(),
+                    StringMultilineTags(),
                     const SizedBox(
                       height: 15,
                     ),
@@ -385,12 +386,11 @@ class CompleteData extends StatelessWidget {
                 ),
               ),
             ),
-          );
+          ),);
         },
       ),
     );
   }
-
 
 
 }
