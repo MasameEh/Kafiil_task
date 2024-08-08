@@ -8,6 +8,7 @@ import 'package:kafil/shared/class/crud.dart';
 
 import '../data/models/user.dart';
 import '../services/services.dart';
+import '../shared/class/statusrequest.dart';
 
 abstract class WhoAmIController extends GetxController{
   void changePasswordVisibility();
@@ -23,7 +24,7 @@ class WhoAmIControllerImp extends WhoAmIController{
 
   bool isPass = true;
   bool isChecked = false;
-  final String selectedGender = 'Male';
+  String? selectedGender;
   String? selectedUserType;
   late TextEditingController passController;
   late TextEditingController firstNameController;
@@ -35,6 +36,7 @@ class WhoAmIControllerImp extends WhoAmIController{
 
   var user = UserModel();
 
+  StatusRequest? statusRequest;
 
   IconData suffix = Icons.visibility_off_outlined;
   List<String> checkBoxList = ['Facebook', 'Twitter', 'Linkedin'];
@@ -57,6 +59,7 @@ class WhoAmIControllerImp extends WhoAmIController{
   @override
   void onInit() {
     // TODO: implement onInit
+    super.onInit();
     passController = TextEditingController(text: "12345678");
     aboutController = TextEditingController();
     firstNameController = TextEditingController();
@@ -64,11 +67,14 @@ class WhoAmIControllerImp extends WhoAmIController{
     emailController = TextEditingController();
     salaryController = TextEditingController();
     dateController = TextEditingController();
-
-    super.onInit();
+    if(services.sharedPref.containsKey("token")) {
+      getData();
+    }
   }
   @override
   Future<void> getData() async{
+    statusRequest = StatusRequest.loading;
+    update();
     String token = services.sharedPref.getString("token")!;
     var response =  await crud.getData(AppLinks.whoAmI, headers:
     {
@@ -84,6 +90,7 @@ class WhoAmIControllerImp extends WhoAmIController{
       selectUserType(user.type!);
       selectGender(user.gender!);
       print(user.id!);
+      statusRequest = StatusRequest.success;
       update();
     }else if(response["success"] == false){
       print(response["error"]["message"]);
@@ -95,7 +102,7 @@ class WhoAmIControllerImp extends WhoAmIController{
     update();
   }
   selectGender(int gender){
-    gender == 0 ? selectedGender == "Male": selectedGender == "Female";
+    gender == 0 ? selectedGender = "Female": selectedGender = "Male";
     update();
   }
 
@@ -107,6 +114,11 @@ class WhoAmIControllerImp extends WhoAmIController{
     suffix = isPass ? Icons.visibility_off_outlined : Icons.visibility_outlined;
 
     update();
+  }
+
+  logOut(){
+    services.sharedPref.remove("token");
+    Get.offAllNamed("/");
   }
 
   @override

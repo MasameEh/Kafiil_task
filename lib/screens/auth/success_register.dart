@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../shared/defaultbutton.dart';
-import '../size_config.dart';
-import '../themes.dart';
+import '../../shared/widgets/defaultbutton.dart';
+import '../../size_config.dart';
+import '../../themes.dart';
 
 
 class SuccessSignup extends StatelessWidget {

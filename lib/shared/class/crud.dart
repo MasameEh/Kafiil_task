@@ -82,7 +82,7 @@ class Crud{
   getData(String url, {Map<String, String>? headers}) async{
     try{
       var response = await http.get(Uri.parse(url), headers: headers);
-
+      print(response.statusCode);
       var responseBody =  jsonDecode(response.body);
 
       return responseBody;

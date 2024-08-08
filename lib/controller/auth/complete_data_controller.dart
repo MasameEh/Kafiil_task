@@ -24,7 +24,7 @@ class CompleteDataControllerImp extends CompleteDataController{
 
   int counter = 100;
   String? selectedGender;
-  int? selectedGenderBool;
+  int? selectedGenderInt;
   List<String> checkBoxList = ['facebook', 'x', 'linkedin'];
   List<String> selectedSocial = [];
   List<bool?> checked = [false,false,false];
@@ -101,7 +101,7 @@ class CompleteDataControllerImp extends CompleteDataController{
         socialMedia: selectedSocial[0],
         avatar: selectedImage,
         tags: "5",
-        gender: selectedGenderBool,
+        gender: selectedGenderInt,
       );
 
       print("response is $response") ;
@@ -122,10 +122,10 @@ class CompleteDataControllerImp extends CompleteDataController{
   selectGender(String val){
     if(val == 'Male') {
       selectedGender = 'Male';
-      selectedGenderBool = 1;
+      selectedGenderInt = 1;
     }else{
       selectedGender = 'Female';
-      selectedGenderBool = 0;
+      selectedGenderInt = 0;
     }
     update();
   }

@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 
-import '../themes.dart';
+import '../../themes.dart';
 
 class ServiceItem extends StatelessWidget {
 
   final String price;
   final String title;
+  final String avgRating;
+  final String imageUrl;
+  final String salesCount;
 
-  const ServiceItem({super.key, required this.price, required this.title});
+  const ServiceItem({super.key,
+    required this.price,
+    required this.title,
+    required this.avgRating,
+    required this.imageUrl,
+    required this.salesCount});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +32,7 @@ class ServiceItem extends StatelessWidget {
               color: Colors.grey.withOpacity(0.1),
               spreadRadius: 2,
               blurRadius: 5,
-              offset: Offset(0, 1), // changes position of shadow
+              offset: const Offset(0, 1), // changes position of shadow
             ),
           ],
         ),
@@ -38,7 +46,7 @@ class ServiceItem extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                      image: AssetImage('assets/logo.png'), // Replace with your image asset
+                      image: NetworkImage(imageUrl), // Replace with your image asset
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -47,20 +55,20 @@ class ServiceItem extends StatelessWidget {
                   bottom: 10,
                   left: 10,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                     decoration: BoxDecoration(
                       color: primaryColor,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
                       price,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Column(
@@ -75,19 +83,19 @@ class ServiceItem extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.star, color: Color(0xffffd865), size: 20),
-                SizedBox(width: 4),
-                Text('(4.5)', style: TextStyle(color: Color(0xffffd865), fontSize: 14)),
-                SizedBox(width: 6),
+                const Icon(Icons.star, color: Color(0xffffd865), size: 20),
+                const SizedBox(width: 4),
+                Text(avgRating, style: const TextStyle(color: Color(0xffffd865), fontSize: 14)),
+                const SizedBox(width: 6),
                 Text('|',style: TextStyle(color: Colors.grey[400]) ),
-                SizedBox(width: 5),
-                Icon(Icons.shopping_basket, color: Colors.grey, size: 20),
-                SizedBox(width: 4),
-                Text('20',style: TextStyle(color: Colors.grey) ),
+                const SizedBox(width: 5),
+                const Icon(Icons.shopping_basket, color: Colors.grey, size: 20),
+                const SizedBox(width: 4),
+                Text(salesCount,style: const TextStyle(color: Colors.grey) ),
               ],
             ),
           ],

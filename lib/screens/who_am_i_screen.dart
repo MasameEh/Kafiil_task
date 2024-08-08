@@ -1,13 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../controller/who_am_i_controller.dart';
-import '../shared/defaultbutton.dart';
-import '../shared/inputfield.dart';
-import '../shared/stringmultilinetags.dart';
+import '../shared/class/statusrequest.dart';
+import '../shared/widgets/defaultbutton.dart';
+import '../shared/widgets/inputfield.dart';
+import '../shared/widgets/stringmultilinetags.dart';
 import '../size_config.dart';
 import '../themes.dart';
 
@@ -30,6 +28,9 @@ class WhoAmIScreen extends StatelessWidget {
       ),
       body: GetBuilder<WhoAmIControllerImp>(
         builder: (controller) {
+          if(controller.statusRequest == StatusRequest.loading){
+            return const Center(child: CircularProgressIndicator());
+          }
           return Padding(
             padding: EdgeInsets.only(
                 left: SizeConfig.screenWidth * .05,
@@ -308,7 +309,7 @@ class WhoAmIScreen extends StatelessWidget {
                   DefaultButton(
                     label: 'Log out',
                     onTap: () {
-                      Get.offAllNamed("/");
+                      controller.logOut();
                     },
                   ),
                   const SizedBox(

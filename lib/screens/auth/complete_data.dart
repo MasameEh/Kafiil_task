@@ -1,19 +1,18 @@
-import 'dart:io';
-
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:kafil/shared/class/handlingdataview.dart';
 import 'package:kafil/shared/functions/validator.dart';
 
-import '../controller/auth/complete_data_controller.dart';
-import '../shared/defaultbutton.dart';
-import '../shared/inputfield.dart';
-import '../shared/stringmultilinetags.dart';
-import '../shared/user_image.dart';
-import '../size_config.dart';
-import '../themes.dart';
-import 'layout_screen.dart';
+import '../../controller/auth/complete_data_controller.dart';
+import '../../shared/class/statusrequest.dart';
+import '../../shared/widgets/defaultbutton.dart';
+import '../../shared/widgets/inputfield.dart';
+import '../../shared/widgets/stringmultilinetags.dart';
+import '../../shared/widgets/user_image.dart';
+import '../../size_config.dart';
+import '../../themes.dart';
 
 class CompleteData extends StatelessWidget {
   const CompleteData({super.key});
@@ -23,6 +22,7 @@ class CompleteData extends StatelessWidget {
   Widget build(BuildContext context) {
 
     CompleteDataControllerImp con = Get.put(CompleteDataControllerImp());
+
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: const FlexibleSpaceBar(
@@ -55,7 +55,7 @@ class CompleteData extends StatelessWidget {
       ),
       body: GetBuilder<CompleteDataControllerImp>(
         builder: (controller) {
-          return HandlingDataReq(statusRequest: controller.statusRequest, widget: Padding(
+          return Padding(
             padding: EdgeInsets.only(
                 top: SizeConfig.screenHeight * .02,
                 left: SizeConfig.screenWidth * .05,
@@ -325,7 +325,7 @@ class CompleteData extends StatelessWidget {
                         ),
                       ],
                     ),
-                    StringMultilineTags(),
+                    const StringMultilineTags(),
                     const SizedBox(
                       height: 15,
                     ),
@@ -372,12 +372,16 @@ class CompleteData extends StatelessWidget {
                     const SizedBox(
                       height: 25,
                     ),
-                    DefaultButton(
-                      label: 'Submit',
-
-                      onTap: () {
-                        controller.register();
-                      },
+                    ConditionalBuilder(
+                      condition: controller.statusRequest != StatusRequest.loading,
+                      builder: (context) => DefaultButton(
+                        label: 'Submit',
+                        onTap: () {
+                          controller.register();
+                        },
+                      ),
+                      fallback: (context) => const Center(
+                          child: CircularProgressIndicator()),
                     ),
                     const SizedBox(
                       height: 50,
@@ -386,7 +390,7 @@ class CompleteData extends StatelessWidget {
                 ),
               ),
             ),
-          ),);
+          );
         },
       ),
     );

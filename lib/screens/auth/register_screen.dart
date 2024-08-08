@@ -1,14 +1,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kafil/shared/error_msg.dart';
+import 'package:kafil/shared/widgets/error_msg.dart';
 import 'package:kafil/shared/functions/validator.dart';
 
-import '../controller/auth/register_controller.dart';
-import '../shared/defaultbutton.dart';
-import '../shared/inputfield.dart';
-import '../size_config.dart';
-import '../themes.dart';
+import '../../controller/auth/register_controller.dart';
+import '../../shared/widgets/defaultbutton.dart';
+import '../../shared/widgets/inputfield.dart';
+import '../../size_config.dart';
+import '../../themes.dart';
 
 
 class RegisterScreen extends StatelessWidget {
@@ -175,10 +175,6 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     InputField(
                       title: 'Confirm Password',
-                      // onSubmit: (val)
-                      // {
-                      //   _validateElements();
-                      // },
                       validator: (val) {
                         return validInput(val!, 8, 25, "password");
                       },

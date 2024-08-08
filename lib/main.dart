@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:kafil/routes.dart';
-import 'package:kafil/screens/login_screen.dart';
+import 'package:kafil/screens/auth/login_screen.dart';
 import 'package:kafil/services/services.dart';
+import 'package:kafil/size_config.dart';
 
 import 'bindings/initial_bindings.dart';
 import 'themes.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white,
           checkboxTheme: CheckboxThemeData(
               side: BorderSide(
-                color: Colors.grey[350]!,
+                  color: Colors.grey[350]!,
               )),
           colorScheme: ThemeData().colorScheme.copyWith(
             primary: primaryColor,

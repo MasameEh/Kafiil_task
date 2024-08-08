@@ -6,6 +6,8 @@ import '../../data/data_source/auth/login_data.dart';
 import '../../services/services.dart';
 import '../../shared/class/statusrequest.dart';
 import '../../shared/functions/handlingdata.dart';
+import '../countries_controller.dart';
+import '../services_controller.dart';
 import '../who_am_i_controller.dart';
 
 
@@ -27,6 +29,8 @@ class LoginControllerImp extends LoginController{
 
 
   WhoAmIControllerImp controller = Get.find();
+  CountriesControllerImp countriesController = Get.find();
+  ServicesControllerImp servicesController = Get.find();
 
   bool isPass = true;
   bool isChecked = false;
@@ -70,6 +74,11 @@ class LoginControllerImp extends LoginController{
           await controller.getData();
 
           if (controller.user.id != null) {
+            // await countriesController.fetchAllCountries();
+            // await servicesController.fetchAllServices();
+            // await servicesController.fetchAllPopularServices();
+            
+            print(countriesController.allCountries);
             gotoHomePage();
           } else {
             print("Failed to fetch user data");

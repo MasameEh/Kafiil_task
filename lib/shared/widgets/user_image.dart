@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../themes.dart';
+import '../../themes.dart';
 
 
 class UserImage extends StatefulWidget {

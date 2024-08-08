@@ -1,17 +1,14 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kafil/screens/register_screen.dart';
-import 'package:kafil/shared/class/handlingdataview.dart';
+import 'package:kafil/shared/class/statusrequest.dart';
 
-import '../controller/auth/login_controller.dart';
-import '../controller/who_am_i_controller.dart';
-import '../shared/defaultbutton.dart';
-import '../shared/error_msg.dart';
-import '../shared/functions/validator.dart';
-import '../shared/inputfield.dart';
-import '../size_config.dart';
-import '../themes.dart';
-import 'layout_screen.dart';
+import '../../controller/auth/login_controller.dart';
+import '../../shared/functions/validator.dart';
+import '../../shared/widgets/defaultbutton.dart';
+import '../../shared/widgets/inputfield.dart';
+import '../../size_config.dart';
+import '../../themes.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -30,7 +27,7 @@ class LoginScreen extends StatelessWidget {
       ),
       body: GetBuilder<LoginControllerImp>(
         builder: (controller) {
-          return HandlingDataReq(statusRequest: controller.statusRequest, widget: Padding(
+          return Padding(
             padding: EdgeInsets.only(left: SizeConfig.screenWidth * .05, right: SizeConfig.screenWidth * .05, top: SizeConfig.screenHeight * .04),
             child: SingleChildScrollView(
               child: Form(
@@ -107,11 +104,16 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(
                       height: 15,
                     ),
-                    DefaultButton(
-                      label: 'Login',
-                      onTap: () {
-                        controller.login();
-                      },
+                    ConditionalBuilder(
+                      condition: controller.statusRequest != StatusRequest.loading,
+                      builder: (context) => DefaultButton(
+                        label: 'Login',
+                        onTap: () {
+                          controller.login();
+                        },
+                      ),
+                      fallback: (context) => const Center(
+                          child: CircularProgressIndicator()),
                     ),
                     const SizedBox(
                       height: 5,
@@ -138,7 +140,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ));
+          );
         },
       ),
     );

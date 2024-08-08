@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
-import '../data/models/user.dart';
-import '../themes.dart';
+import '../../data/models/user.dart';
+import '../../themes.dart';
 
 
 class StringMultilineTags extends StatefulWidget {
