@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kafil/controller/auth/complete_data_controller.dart';
 
 import '../controller/who_am_i_controller.dart';
 import '../shared/class/statusrequest.dart';
@@ -254,7 +255,7 @@ class WhoAmIScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  StringMultilineTags(tags: controller.user.tags),
+                  StringMultilineTags(tags: controller.user.tags, readOnly: true,),
                   const SizedBox(
                     height: 10,
                   ),

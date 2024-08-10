@@ -47,8 +47,20 @@ class Crud{
 
       request.files.add(multipartFile);
 
+      // Add fields to the request
       data.forEach((key, value) {
-        request.fields[key] = value.toString();
+        if (value is List) {
+          int i = 0;
+          // If the value is a list, concatenate the items with a delimiter
+          for (var item in value) {
+            print(item);
+            request.fields['$key[$i]'] = item.toString();
+            i++;
+          }
+        } else {
+          // Otherwise, just add the single field
+          request.fields[key] = value.toString();
+        }
       });
 
       if (headers != null) {
@@ -63,14 +75,7 @@ class Crud{
       Map responseBody = jsonDecode(response.body);
 
       return responseBody;
-      // if(response.statusCode == 200 || response.statusCode == 201){
-      //   Map responseBody = jsonDecode(response.body);
-      //   print("done");
-      //   return responseBody;
-      // }
-      // else{
-      //   print("statusCode is ${response.statusCode}");
-      // }
+
     }catch(e){
       print("Error is ${e}");
       return {"error": "Exception: $e"};

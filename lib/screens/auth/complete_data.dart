@@ -2,7 +2,6 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:kafil/shared/class/handlingdataview.dart';
 import 'package:kafil/shared/functions/validator.dart';
 
 import '../../controller/auth/complete_data_controller.dart';

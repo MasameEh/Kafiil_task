@@ -40,7 +40,7 @@ class WhoAmIControllerImp extends WhoAmIController{
 
   IconData suffix = Icons.visibility_off_outlined;
   List<String> checkBoxList = ['Facebook', 'Twitter', 'Linkedin'];
-  List<bool?> checked = [true,false,false];
+  List<bool?> checked = [false,false,false];
   List<Widget> mediaIcons = [
     const Icon(
       Icons.facebook,
@@ -89,6 +89,7 @@ class WhoAmIControllerImp extends WhoAmIController{
       user = UserModel.fromJson(response["data"]);
       selectUserType(user.type!);
       selectGender(user.gender!);
+      selectSocialMedia(user.favoriteSocialMedia!);
       print(user.id!);
       statusRequest = StatusRequest.success;
       update();
@@ -106,13 +107,23 @@ class WhoAmIControllerImp extends WhoAmIController{
     update();
   }
 
-
+  selectSocialMedia(List<String> socialMedia) {
+    for(String value in socialMedia){
+      if(value ==  "facebook"){
+        checked[0] = true;
+      }else if(value ==  "x"){
+        checked[1] = true;
+      }
+      else if(value ==  "instagram"){
+        checked[2] = true;
+      }
+    }
+    update();
+  }
   @override
   changePasswordVisibility(){
-
     isPass = !isPass;
     suffix = isPass ? Icons.visibility_off_outlined : Icons.visibility_outlined;
-
     update();
   }
 

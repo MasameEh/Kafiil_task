@@ -1,35 +1,46 @@
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:kafil/controller/stringmultitags_controller.dart';
 import 'package:kafil/data/data_source/auth/register_data.dart';
 
 import '../../shared/class/statusrequest.dart';
-import '../../shared/functions/handlingdata.dart';
 
-
-
-abstract class CompleteDataController extends GetxController{
-
+abstract class CompleteDataController extends GetxController {
   void register();
   void incrementSalary();
   void decrementSalary();
 }
 
-
-class CompleteDataControllerImp extends CompleteDataController{
-
+class CompleteDataControllerImp extends CompleteDataController {
   int counter = 100;
   String? selectedGender;
   int? selectedGenderInt;
   List<String> checkBoxList = ['facebook', 'x', 'linkedin'];
   List<String> selectedSocial = [];
-  List<bool?> checked = [false,false,false];
+  List<bool?> checked = [false, false, false];
   File? selectedImage;
   late TextEditingController aboutController;
+
+  DateTime selectedDate = DateTime.now().subtract(const Duration(days: 365));
+  List data = [];
+  RegisterData registerData = RegisterData(Get.find());
+  MultiTagsController con = Get.find();
+
+  StatusRequest? statusRequest;
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  String? email;
+  String? password;
+  String? firstname;
+  String? lastname;
+  String? usertype;
+  int? userType;
+  List<String> tags = [];
 
   List<Icon> mediaIcons = [
     const Icon(
@@ -45,49 +56,36 @@ class CompleteDataControllerImp extends CompleteDataController{
       color: Color(0xFF0077B5), // Normal Facebook color
     ),
   ];
-
-  DateTime selectedDate = DateTime.now();
-  List data = [];
-  RegisterData registerData = RegisterData(Get.find());
-
-  StatusRequest? statusRequest;
-
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  String? email;
-  String? password;
-  String? firstname;
-  String? lastname;
-  String? usertype;
-  int? userType;
-
-
   @override
   void onInit() {
     // TODO: implement onInit
-    email     = Get.arguments["email"];
-    password  = Get.arguments["password"];
+    email = Get.arguments["email"];
+    password = Get.arguments["password"];
     firstname = Get.arguments["firstname"];
-    lastname  = Get.arguments["lastname"];
-    usertype  = Get.arguments["usertype"];
+    lastname = Get.arguments["lastname"];
+    usertype = Get.arguments["usertype"];
     aboutController = TextEditingController();
 
-    if(usertype == 'Buyer'){
+    if (usertype == 'Buyer') {
       userType = 1;
-    }else if(usertype == 'Seller'){
+    } else if (usertype == 'Seller') {
       userType = 2;
-    // ignore: curly_braces_in_flow_control_structures
-    }else userType = 3;
+      // ignore: curly_braces_in_flow_control_structures
+    } else{
+      userType = 3;
+    }
     super.onInit();
   }
 
-
   @override
-  register() async{
-    if(formKey.currentState!.validate() && selectedImage != null &&
+  register() async {
+    if (formKey.currentState!.validate() &&
+        selectedImage != null &&
         selectedDate.isBefore(DateTime.now()) &&
-        selectedGender != null && selectedSocial.isNotEmpty){
+        selectedGender != null &&
+        selectedSocial.isNotEmpty) {
       statusRequest = StatusRequest.loading;
+      selectTags();
       update();
       var response = await registerData.postData(
         email: email!,
@@ -98,79 +96,103 @@ class CompleteDataControllerImp extends CompleteDataController{
         about: aboutController.text.trim(),
         birthDate: DateFormat('yyyy-MM-dd').format(selectedDate),
         salary: counter,
-        socialMedia: selectedSocial[0],
+        socialMedia: selectedSocial,
         avatar: selectedImage,
-        tags: "5",
+        tags: tags,
         gender: selectedGenderInt,
       );
 
-      print("response is $response") ;
-      if(response!["success"] == true){
+      print("response is $response");
+      if (response!["success"] == true) {
         Get.offAllNamed('/success');
         statusRequest = StatusRequest.success;
-      }
-      else{
+      } else {
         Get.defaultDialog(title: 'Warning', middleText: response!["message"]);
         statusRequest = StatusRequest.serverFailure;
       }
       update();
-    }else{
-      Get.defaultDialog(title: 'Warning', middleText: "Fill all the required fields");
+    } else {
+      Get.defaultDialog(
+          title: 'Warning', middleText: "Fill all the required fields");
     }
   }
 
-  selectGender(String val){
-    if(val == 'Male') {
+  selectGender(String val) {
+    if (val == 'Male') {
       selectedGender = 'Male';
       selectedGenderInt = 1;
-    }else{
+    } else {
       selectedGender = 'Female';
       selectedGenderInt = 0;
     }
     update();
   }
 
-  selectSocialMedia(int index, bool value){
+  selectTags() {
+    print(con.tags);
+    for(String value in con.tags){
+      if(value == "التدقيق اللغوي"){
+        tags.add("30");
+      }else if(value == "تصميم المواقع الإلكترونية"){
+        tags.add("31");
+      }else if(value == "إنتاج الفيديو"){
+        tags.add("32");
+      }else{
+        tags.add("7");
+      }
+    }
+    print(tags);
+  }
+
+  selectSocialMedia(int index, bool value) {
     checked[index] = value;
-    if(checked[index] == true){
-      selectedSocial.add(checkBoxList[index]);
-    }else if(checked[index] ==  false && selectedSocial.contains(checkBoxList[index])){
-      selectedSocial.remove(checkBoxList[index]);
+    if (checked[index] == true) {
+      if (checkBoxList[index] == "linkedin") {
+        selectedSocial.add("instagram");
+      } else {
+        selectedSocial.add(checkBoxList[index]);
+      }
+    } else if (checked[index] == false &&
+        selectedSocial.contains(checkBoxList[index])) {
+
+      if (checkBoxList[index] == "linkedin") {
+        selectedSocial.remove("instagram");
+      } else {
+        selectedSocial.remove(checkBoxList[index]);
+      }
     }
     print(selectedSocial);
     update();
   }
 
-  void navigateSelectedImage(File pickedImage)
-  {
+  void navigateSelectedImage(File pickedImage) {
     selectedImage = pickedImage;
     update();
   }
 
   @override
-   incrementSalary() async{
-    if(counter < 1000){
-      counter+=100;
-    }else{
-      return Get.defaultDialog(title: 'Warning', middleText: "Salary can't be more than 1000");
+  incrementSalary() async {
+    if (counter < 1000) {
+      counter += 100;
+    } else {
+      return Get.defaultDialog(
+          title: 'Warning', middleText: "Salary can't be more than 1000");
     }
     update();
   }
 
   @override
-  void decrementSalary() async{
-      if (counter > 100) {
-        counter-=100;
-
-      }else{
-        return Get.defaultDialog(title: 'Warning', middleText: "Salary can't be less than 100");
-      }
-      update();
+  void decrementSalary() async {
+    if (counter > 100) {
+      counter -= 100;
+    } else {
+      return Get.defaultDialog(
+          title: 'Warning', middleText: "Salary can't be less than 100");
+    }
+    update();
   }
 
-
-  getDateFromUser(context) async
-  {
+  getDateFromUser(context) async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now().subtract(const Duration(days: 365)),
@@ -187,10 +209,10 @@ class CompleteDataControllerImp extends CompleteDataController{
         // Handle the case where the picked date is not before today
         // For example, you can show an error message
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please select a birth date before today.')),
+          const SnackBar(
+              content: Text('Please select a birth date before today.')),
         );
       }
     }
   }
-
 }

@@ -21,29 +21,31 @@ class SuccessSignup extends StatelessWidget {
                 .headlineLarge!
                 .copyWith(color: Colors.grey[350])),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(15),
-        child: Column(children: [
-          const Center(
-              child: Icon(
-                Icons.check_circle_outline,
-                size: 200,
-                color: primaryColor,
-              )),
-          Text("congratulations",
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineLarge!
-                  .copyWith(fontSize: 30, color: primaryColor)),
-          const Text("Account successfully registered"),
-          SizedBox(height: SizeConfig.screenHeight * 0.05),
-          DefaultButton(
-            label: 'Done',
-            onTap: () {
-              Get.offAllNamed('/');
-            },
-          ),
-        ]),
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.all(15),
+          child: Column(children: [
+            const Center(
+                child: Icon(
+                  Icons.check_circle_outline,
+                  size: 200,
+                  color: primaryColor,
+                )),
+            Text("congratulations",
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge!
+                    .copyWith(fontSize: 30, color: primaryColor)),
+            const Text("Account successfully registered"),
+            SizedBox(height: SizeConfig.screenHeight * 0.05),
+            DefaultButton(
+              label: 'Done',
+              onTap: () {
+                Get.offAllNamed('/');
+              },
+            ),
+          ]),
+        ),
       ),
     );
   }

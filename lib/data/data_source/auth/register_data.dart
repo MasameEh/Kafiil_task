@@ -14,10 +14,10 @@ class RegisterData {
     required String pass,
     required int salary,
     required String about,
-    required String socialMedia,
+    required List<String> socialMedia,
     required String birthDate,
     required int type,
-    required String tags,
+    required List<String> tags,
     int? gender,
     File? avatar,
   }) async {
@@ -27,12 +27,12 @@ class RegisterData {
       "email": email,
       "password": pass,
       "password_confirmation": pass,
-      "tags[]": tags,
+      "tags": tags,
       "salary": salary.toString(),
       "gender": gender ?? '',
       "type": type.toString(),
       "birth_date": birthDate,
-      "favorite_social_media[]": socialMedia,
+      "favorite_social_media": socialMedia,
       "about": about,
     };
 

@@ -78,6 +78,8 @@ class RegisterControllerImp extends RegisterController{
           "password": passController.text,
           "usertype": selectedUserType,
         });
+        isError = false;
+        update();
       }else{
         isError = true;
         update();
